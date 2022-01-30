@@ -113,29 +113,15 @@ RUN apt-get purge --auto-remove -y curl gcc \
 # Runs as mopidy user by default.
 USER mopidy
 
-<<<<<<< HEAD
 # Create volumes for
 #   - local: Metadata stored by Mopidy
 #   - media: Local media files
-=======
-# Basic check,
-RUN /usr/bin/dumb-init /entrypoint.sh /usr/bin/mopidy --version
-
->>>>>>> a2e2c8cd23ecb4f666ee309ebb7887f6d9de748d
 VOLUME ["/var/lib/mopidy/local", "/var/lib/mopidy/media"]
 
 
-<<<<<<< HEAD
 # Copy launch script (will later be replaced with supervisord)
 COPY launch.sh /launch.sh
 ENTRYPOINT ["/bin/bash", "./launch.sh"]
 
 # TODO: use supervisord to manage both mopidy as well as snapcast server
 # CMD ["/usr/bin/supervisord"]
-=======
-ENTRYPOINT ["/usr/bin/dumb-init", "/entrypoint.sh"]
-CMD ["/usr/bin/mopidy"]
-
-HEALTHCHECK --interval=5s --timeout=2s --retries=20 \
-    CMD curl --connect-timeout 5 --silent --show-error --fail http://localhost:6680/ || exit 1
->>>>>>> a2e2c8cd23ecb4f666ee309ebb7887f6d9de748d
