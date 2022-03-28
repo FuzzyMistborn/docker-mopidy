@@ -18,15 +18,21 @@ RUN set -ex \
         python3-pip
 
 # Install Mopidy
-RUN set -ex \
- && mkdir -p /usr/local/share/keyrings \
- && wget -q -O /usr/local/share/keyrings/mopidy-archive-keyring.gpg \
-    https://apt.mopidy.com/mopidy.gpg \
- && wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/buster.list \
- && apt-get update \
- && DEBIAN_FRONTEND=noninteractive apt-get install -y \
-        mopidy
+RUN mkdir -p /usr/local/share/keyrings
+RUN wget -q -O /usr/local/share/keyrings/mopidy-archive-keyring.gpg \
+  https://apt.mopidy.com/mopidy.gpg
+RUN wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/buster.list
+RUN apt-get update
+RUN apt-get install -y mopidy
 
+#RUN set -ex \
+# && mkdir -p /usr/local/share/keyrings \
+# && wget -q -O /usr/local/share/keyrings/mopidy-archive-keyring.gpg \
+#    https://apt.mopidy.com/mopidy.gpg \
+# && wget -q -O /etc/apt/sources.list.d/mopidy.list https://apt.mopidy.com/buster.list \
+# && apt-get update \
+# && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+#        mopidy
 
 # Install Mopidy plugins
 RUN pip3 install Mopidy-Local
